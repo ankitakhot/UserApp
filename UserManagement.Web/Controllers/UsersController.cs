@@ -12,25 +12,6 @@ public class UsersController : Controller
     public UsersController(IUserService userService) => _userService = userService;
 
     [HttpGet]
-    /*public ViewResult List()
-    {
-        var items = _userService.GetAll().Select(p => new UserListItemViewModel
-        {
-            Id = p.Id,
-            Forename = p.Forename,
-            Surname = p.Surname,
-            Email = p.Email,
-            IsActive = p.IsActive
-        });
-
-        var model = new UserListViewModel
-        {
-            Items = items.ToList()
-        };
-
-        return View(model);
-    }*/
-
     public ViewResult List(bool? activeOnly = null)
     {
         var users = _userService.GetAll();
@@ -53,7 +34,7 @@ public class UsersController : Controller
             Forename = p.Forename,
             Surname = p.Surname,
             Email = p.Email,
-            dateOfBirth  = p.dateOfBirth,
+            DateOfBirth  = p.DateOfBirth,
             IsActive = p.IsActive
         }).ToList();
 
@@ -80,6 +61,7 @@ public class UsersController : Controller
             Forename = res.Forename,
             Surname = res.Surname,
             Email = res.Email,
+            DateOfBirth = res.DateOfBirth,
             IsActive = res.IsActive
         };
         return View(model);
@@ -95,6 +77,7 @@ public class UsersController : Controller
             Forename = res.Forename,
             Surname = res.Surname,
             Email = res.Email,
+            DateOfBirth = res.DateOfBirth,
             IsActive = res.IsActive
         };
         return View(model);
@@ -112,6 +95,7 @@ public class UsersController : Controller
                 Forename = res.Forename,
                 Surname = res.Surname,
                 Email = res.Email,
+                DateOfBirth = res.DateOfBirth,
                 IsActive = res.IsActive
             };
             _userService.Update(res);
@@ -148,6 +132,7 @@ public class UsersController : Controller
                 Forename = res.Forename,
                 Surname = res.Surname,
                 Email = res.Email,
+                DateOfBirth = res.DateOfBirth,
                 IsActive = res.IsActive
             };
             _userService.Add(res);
