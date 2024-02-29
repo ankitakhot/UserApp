@@ -12,7 +12,7 @@ public class UsersController : Controller
     public UsersController(IUserService userService) => _userService = userService;
 
     [HttpGet]
-    public ViewResult List()
+    /*public ViewResult List()
     {
         var items = _userService.GetAll().Select(p => new UserListItemViewModel
         {
@@ -29,7 +29,43 @@ public class UsersController : Controller
         };
 
         return View(model);
+    }*/
+
+    public ViewResult List(bool? activeOnly = null)
+    {
+        var users = _userService.GetAll();
+
+        if (activeOnly.HasValue)
+        {
+            if (activeOnly == true)
+            {
+                users = users.Where(u => u.IsActive);
+            }
+            else
+            {
+                users = users.Where(u => !u.IsActive);
+            }
+        }
+
+        var items = users.Select(p => new UserListItemViewModel
+        {
+            Id = p.Id,
+            Forename = p.Forename,
+            Surname = p.Surname,
+            Email = p.Email,
+            dateOfBirth  = p.dateOfBirth,
+            IsActive = p.IsActive
+        }).ToList();
+
+        var model = new UserListViewModel
+        {
+            Items = items
+        };
+
+        return View(model);
     }
+
+
 
     [Route("details/{id:int}")]
     public ActionResult Details(int id)
